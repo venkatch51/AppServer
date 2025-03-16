@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken')
 const user = require('./models/userSchema')
 const auth = require('./auth/authentication')
-const cors = require('cors')
+const cors = require('cors');
+const e = require('express');
 const app = express();
 
 app.use(express.json())
@@ -32,6 +33,12 @@ const dummydata = [
 app.get('/api/students', (req,res) => {
     res.json(dummydata)
 })
+app.post('/api/students',(req,res) => {
+    const studentsData = req.body
+    console.log("studentsdata ",studentsData)
+    dummydata.push(studentsData)
+    res.json(dummydata)
+})
 app.get('/api/students/:id',(req,res) => {
     const { id } = req.params;
     const jsondata = dummydata.filter((list) => list.id === id)
@@ -39,6 +46,7 @@ app.get('/api/students/:id',(req,res) => {
     res.json(jsondata)
 })
 app.post('/api/register',async (req,res) => {
+    console.log(req.body)
     try{
         const {username,email,password} = req.body
         const userDetails = await user.create({username,email,password})
@@ -146,7 +154,11 @@ app.post('api/products/:id',async (req,res) => {
 
 
 mongoose
-  .connect("mongodb+srv://venkatch8051:venkat8051@cluster0.0v6sw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+  .connect("mongodb+srv://venkatch8051:venkat8051@cluster0.0v6sw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000
+  })
   .then(() => {
     console.log("Connected to database");
     app.listen(5000, () => {
