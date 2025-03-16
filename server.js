@@ -140,17 +140,22 @@ app.post('api/products/:id',async (req,res) => {
         res.status(500).json({message:"Error"})
     }
 })
-mongoose
-  .connect("mongodb://localhost:27017")
-  .then(() => {
-    console.log("Connected to database");
-    app.listen(5000, () => {
-      console.log("Server running at 5000");
-    });
-  })
-  .catch((error) => {
-    console.log(`Error while connecting ${error}`);
-  });
+app.listen(5000,() => {
+    console.log("running on port 5000")
+})
+
+
+// mongoose
+//   .connect("mongodb://localhost:27017")
+//   .then(() => {
+//     console.log("Connected to database");
+//     app.listen(5000, () => {
+//       console.log("Server running at 5000");
+//     });
+//   })
+//   .catch((error) => {
+//     console.log(`Error while connecting ${error}`);
+//   });
 app.get("/", (req, res) => {
   res.json([{ name: "venkat", id: "1000" }]);
 });
