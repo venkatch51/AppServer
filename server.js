@@ -148,26 +148,12 @@ app.post('api/products/:id',async (req,res) => {
         res.status(500).json({message:"Error"})
     }
 })
-// app.listen(5000,() => {
-//     console.log("running on port 5000")
-// })
+app.listen(5000,() => {
+    console.log("running on port 5000")
+})
 
 
-mongoose
-  .connect("mongodb+srv://venkatch8051:venkat8051@cluster0.0v6sw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000
-  })
-  .then(() => {
-    console.log("Connected to database");
-    app.listen(5000, () => {
-      console.log("Server running at 5000");
-    });
-  })
-  .catch((error) => {
-    console.log(`Error while connecting ${error}`);
-  });
+
 app.get("/", (req, res) => {
   res.json([{ name: "venkat", id: "1000" }]);
 });
